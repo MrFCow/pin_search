@@ -28,6 +28,7 @@ const useStyles = makeStyles({
 
 export default function ImageComponent(props){
 	const classes = useStyles();
+
 	const [ref, dimensions] = useDimensions();
 
 	const [pos, setPos] = useState({
@@ -76,17 +77,20 @@ export default function ImageComponent(props){
 				w: Math.abs(startX - endX) / dimensions.width,
 				h: Math.abs(startY - endY) / dimensions.height
 			})
+
+			props.setMouseDown(down);
 		},
 		// options
 		{ 
-			delay: true, // allowing click for generated div
+			// delay: 2000, // allowing click for generated div
+			threshold: 10,
 			// bounds: { left: 0, right: dimensions.width, top: 0, bottom: dimensions.height },
 		}, 
 	);
 
 	return (
 		<div className={classes.root} ref={ref} {...bind(dimensions)} style={{touchAction: "none"}}>
-				<img className={classes.img} alt="" src={props.image}/>
+				<img ref={props.sourceImgRef} id="source_image" className={classes.img} alt="Loaded image" src={props.image}/>
 				{Math.abs(pos.startX - pos.endX) * Math.abs(pos.startY - pos.endY) > 0 ? (<div 
 					className={classes.box} 
 					style={{
@@ -95,7 +99,7 @@ export default function ImageComponent(props){
 						left: Math.min(pos.startX, pos.endX),
 						top: Math.min(pos.startY, pos.endY),
 					}}
-					// onClick={e=>console.log("clicked")}
+					onClick={e=>console.log("clicked")}
 				/>) : null}
 			</div>
 	)	

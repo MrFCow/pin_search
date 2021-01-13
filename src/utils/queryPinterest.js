@@ -12,7 +12,7 @@ const searchHeaders = (formData) => {
 const cors = "https://cors-anywhere.herokuapp.com/";
 // const cors = "";
 
-const searchPinterest = async (formData) => {
+export default async function searchPinterest(formData){
 	const result = await axios({
 		method: "put",
 		url: `${cors}https://api.pinterest.com/v3/visual_search/extension/image/`,
@@ -23,5 +23,3 @@ const searchPinterest = async (formData) => {
 	
 	return result;
 };
-
-export {searchPinterest};

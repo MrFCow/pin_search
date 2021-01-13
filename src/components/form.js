@@ -1,21 +1,15 @@
 import React, {useState} from "react";
 
 import ImageGridList from "./resultGrid";
-import {searchPinterest} from "../utils/queryPinterest";
-import ImageComponent from "./imageComponent";
+import ImagePairs from "./imagePairs";
 
-function dataURLtoBlob(dataurl) {
-	var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-			bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-	while(n--){
-			u8arr[n] = bstr.charCodeAt(n);
-	}
-	return new Blob([u8arr], {type:mime});
-}
+import searchPinterest from "../utils/queryPinterest";
+import dataURLtoBlob from "../utils/dataUrlToBlob";
+
 
 
 export default function Main(props){
-	const [image, setImage] = useState(null);
+	const [image, setImage] = useState(null); //base64 string content
 	const [xywh, setXywh] = useState({x: 0, y: 0, w: 1, h: 1});
 	const [isReadingImg, setIsReadingImg] = useState(false);
 	const [isSearching, setIsSearching] = useState(false);
@@ -85,7 +79,7 @@ export default function Main(props){
 			{isReadingImg ? <div>...Loading</div> : null}
 			<div>
 				{image ? <div>
-					<ImageComponent image={image} setSearchArgs={setXywh}/>
+					<ImagePairs image={image} xywh={xywh} setSearchArgs={setXywh}/>	
 					{isSearching ? <div>...Searching</div> : <button onClick={handleSearch}>Search</button>}
 				</div> : 
 				<div>No image</div>}
