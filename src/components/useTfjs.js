@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback, useMemo} from "react";
 import * as tf from '@tensorflow/tfjs';
-import * as deeplab from 'tfmodels/deeplab';
+import * as deeplab from '@tfmodels/deeplab';
 import {useDebugMsg} from "../contexts/debugMsg";
 
 // const deeplab = tfmodels.deeplab;
